@@ -12,6 +12,15 @@ getMaxValue = function(array){
     return temp;
 }
 
+renderParametersCreator = function(ctx){
+    var renderObjectParameters = {
+        renderCloudParameters: {context: ctx, x: X_COOR_CLOUD, y: Y_COOR_CLOUD, width: CLOUD_WIDTH, height: CLOUD_HEIGHT, color: 'white'},
+        renderShadowCloudParameters: {context: ctx, x: X_COOR_CLOUD + SHIFT_SHADOW, y: Y_COOR_CLOUD + SHIFT_SHADOW, width: CLOUD_WIDTH, height: CLOUD_HEIGHT,
+            color: 'black'},
+    };
+    return renderObjectParameters;
+}
+
 renderCloud = function(renderParameters){
     renderParameters.context.fillStyle = renderParameters.color;
     renderParameters.context.fillRect(renderParameters.x, renderParameters.y, renderParameters.height, renderParameters.width);
@@ -19,9 +28,7 @@ renderCloud = function(renderParameters){
 
 window.renderStatistics = function(ctx, names, times){
     var maxValue = getMaxValue(times);
-    var renderCloudParameters = {context: ctx, x: X_COOR_CLOUD, y: Y_COOR_CLOUD, width: CLOUD_WIDTH, height: CLOUD_HEIGHT, color: 'white'};
-    var renderShadowCloudParameters = {context: ctx, x: X_COOR_CLOUD + SHIFT_SHADOW, y: Y_COOR_CLOUD + SHIFT_SHADOW, width: CLOUD_WIDTH, height: CLOUD_HEIGHT,
-         color: 'black'};
-    renderCloud(renderShadowCloudParameters);         
-    renderCloud(renderCloudParameters);
+    renderObjectsParameters = renderParametersCreator(ctx);
+    renderCloud(renderObjectsParameters.renderShadowCloudParameters);         
+    renderCloud(renderObjectsParameters.renderCloudParameters);
 }
