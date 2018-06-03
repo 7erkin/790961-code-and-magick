@@ -22,13 +22,39 @@ var getMaxValue = function (array) {
   return temp;
 };
 
+var randomColorGenerator = function () {
+  var redComponent = 0;
+  var greenComponent = 0;
+  var blueComponent = Math.round(255 * Math.random());
+  var aComponent = Math.random();
+  return 'rgba(' + redComponent + ', ' + greenComponent + ', ' + blueComponent + ', ' + aComponent +')';
+};
+
 var renderParametersCreator = function (ctx) {
   var renderObjectParameters = {
-    renderCloudParameters: {context: ctx, x: X_COOR_CLOUD, y: Y_COOR_CLOUD, width: CLOUD_WIDTH, height: CLOUD_HEIGHT, color: 'white'},
-    renderShadowCloudParameters: {context: ctx, x: X_COOR_CLOUD + SHIFT_SHADOW, y: Y_COOR_CLOUD + SHIFT_SHADOW, width: CLOUD_WIDTH, height: CLOUD_HEIGHT,
-      color: 'rgba(0, 0, 0, 0.7)'},
-    renderGistogramParameters: {context: ctx, height: GISTOGRAM_HEIGHT, columnWidth: GISTOGRAM_COLUMN_WIDTH,
-      distanceBetweenColumn: GISTOGRAM_DISTANCE_BETWEEN_COLUMN, colorColumnPlayer: GISTOGRAM_PLAYER_COLUMN_COLOUR}
+    renderCloudParameters: {
+      context: ctx, 
+      x: X_COOR_CLOUD,
+      y: Y_COOR_CLOUD, 
+      width: CLOUD_WIDTH,
+      height: CLOUD_HEIGHT,
+      color: 'white'
+    },
+    renderShadowCloudParameters: {
+      context: ctx,
+      x: X_COOR_CLOUD + SHIFT_SHADOW, 
+      y: Y_COOR_CLOUD + SHIFT_SHADOW, 
+      width: CLOUD_WIDTH,
+      height: CLOUD_HEIGHT,
+      color: 'rgba(0, 0, 0, 0.7)'
+    },
+    renderGistogramParameters: {
+      context: ctx, 
+      height: GISTOGRAM_HEIGHT, 
+      columnWidth: GISTOGRAM_COLUMN_WIDTH,
+      distanceBetweenColumn: GISTOGRAM_DISTANCE_BETWEEN_COLUMN,
+      colorColumnPlayer: GISTOGRAM_PLAYER_COLUMN_COLOUR
+    }
   };
   return renderObjectParameters;
 };
@@ -46,7 +72,7 @@ var renderGistogram = function (renderParameters, names, times) {
   renderParameters.context.fillText('Ура вы победили!', X_COOR_CLOUD + 50, Y_COOR_CLOUD + GISTOGRAM_LABEL_SHIFT); // shift parameters
   renderParameters.context.fillText('Список результатов:', X_COOR_CLOUD + 50, Y_COOR_CLOUD + 2 * GISTOGRAM_LABEL_SHIFT); // shift parameters
   for (var i = 0; i < names.length; ++i) {
-    renderParameters.context.fillStyle = (names[i] === 'Вы') ? GISTOGRAM_PLAYER_COLUMN_COLOUR : 'rgba(' + Math.random() * 255 + ', 255, ' + Math.random() * 255 + ', 1)';
+    renderParameters.context.fillStyle = (names[i] === 'Вы') ? GISTOGRAM_PLAYER_COLUMN_COLOUR : randomColorGenerator();
     var delta = GISTOGRAM_HEIGHT * (1 - times[i] / maxValue);
     var xCoorRectangle = X_COOR_CLOUD + GISTOGRAM_DISTANCE_BETWEEN_COLUMN + (GISTOGRAM_COLUMN_WIDTH + GISTOGRAM_DISTANCE_BETWEEN_COLUMN) * i;
     var yCoorRectangle = Y_COOR_CLOUD + CLOUD_HEIGHT - GISTOGRAM_HEIGHT + delta;
