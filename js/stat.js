@@ -27,30 +27,30 @@ var randomColorGenerator = function () {
   var greenComponent = 0;
   var blueComponent = Math.round(255 * Math.random());
   var aComponent = Math.random();
-  return 'rgba(' + redComponent + ', ' + greenComponent + ', ' + blueComponent + ', ' + aComponent +')';
+  return 'rgba(' + redComponent + ', ' + greenComponent + ', ' + blueComponent + ', ' + aComponent + ')';
 };
 
 var renderParametersCreator = function (ctx) {
   var renderObjectParameters = {
     renderCloudParameters: {
-      context: ctx, 
+      context: ctx,
       x: X_COOR_CLOUD,
-      y: Y_COOR_CLOUD, 
+      y: Y_COOR_CLOUD,
       width: CLOUD_WIDTH,
       height: CLOUD_HEIGHT,
       color: 'white'
     },
     renderShadowCloudParameters: {
       context: ctx,
-      x: X_COOR_CLOUD + SHIFT_SHADOW, 
-      y: Y_COOR_CLOUD + SHIFT_SHADOW, 
+      x: X_COOR_CLOUD + SHIFT_SHADOW,
+      y: Y_COOR_CLOUD + SHIFT_SHADOW,
       width: CLOUD_WIDTH,
       height: CLOUD_HEIGHT,
       color: 'rgba(0, 0, 0, 0.7)'
     },
     renderGistogramParameters: {
-      context: ctx, 
-      height: GISTOGRAM_HEIGHT, 
+      context: ctx,
+      height: GISTOGRAM_HEIGHT,
       columnWidth: GISTOGRAM_COLUMN_WIDTH,
       distanceBetweenColumn: GISTOGRAM_DISTANCE_BETWEEN_COLUMN,
       colorColumnPlayer: GISTOGRAM_PLAYER_COLUMN_COLOUR
