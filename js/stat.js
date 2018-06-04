@@ -25,8 +25,8 @@ var getMaxValue = function (array) {
 var randomColorGenerator = function () {
   var redComponent = 0;
   var greenComponent = 0;
-  var blueComponent = Math.round(255 * Math.random());
-  var aComponent = Math.random();
+  var blueComponent = 255 - Math.round(105 * Math.random());
+  var aComponent = 1;
   return 'rgba(' + redComponent + ', ' + greenComponent + ', ' + blueComponent + ', ' + aComponent + ')';
 };
 
