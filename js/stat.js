@@ -32,7 +32,7 @@ var randomColorGenerator = function () {
   var greenComponent = 0;
   var blueComponent = getRandomInit(150, 255);
   var aComponent = 1;
-  return 'rgba(' + redComponent + ', ' + reenComponent + ', ' + blueComponent + ', ' + aComponent + ')';
+  return 'rgba(' + redComponent + ', ' + greenComponent + ', ' + blueComponent + ', ' + aComponent + ')';
 };
 
 var renderParametersCreator = function (ctx) {
