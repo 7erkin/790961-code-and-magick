@@ -28,8 +28,8 @@ var getRandomInit = function (min, max) {
 
 var randomColorGenerator = function () {
   var addColor = getRandomInit(0, 140);
-  var redComponent = 0;
-  var greenComponent = 0;
+  var redComponent = addColor;
+  var greenComponent = addColor;
   var blueComponent = getRandomInit(150, 255);
   var aComponent = 1;
   return 'rgba(' + redComponent + ', ' + greenComponent + ', ' + blueComponent + ', ' + aComponent + ')';
@@ -69,7 +69,7 @@ var renderCloud = function (renderParameters) {
   renderParameters.context.fillRect(renderParameters.x, renderParameters.y, renderParameters.width, renderParameters.height);
 };
 
-var renderGistogramLabel = function () {
+var renderGistogramLabel = function (renderParameters) {
   renderParameters.context.fillStyle = 'black';
   renderParameters.context.font = '16px PT Mono';
   // shift parameters has been used because of TEXT IS COVERED WITH CLOUD!
@@ -77,7 +77,7 @@ var renderGistogramLabel = function () {
   renderParameters.context.fillText('Список результатов:', X_COOR_CLOUD + 50, Y_COOR_CLOUD + 2 * GISTOGRAM_LABEL_SHIFT); // shift parameters
 };
 
-var renderGistogramColumn = function () {
+var renderGistogramColumn = function (renderParameters, names, times) {
   var maxValue = getMaxValue(times);
   for (var i = 0; i < names.length; ++i) {
     renderParameters.context.fillStyle = (names[i] === 'Вы') ? GISTOGRAM_PLAYER_COLUMN_COLOUR : randomColorGenerator();
@@ -93,7 +93,7 @@ var renderGistogramColumn = function () {
 };
 
 var renderGistogram = function (renderParameters, names, times) {
-  renderGistogramLabel();
+  renderGistogramLabel(renderParameters);
   renderGistogramColumn(renderParameters, names, times);
 };
 
