@@ -77,47 +77,39 @@ var renderGistogramTitle = function (renderParameters) {
   renderParameters.context.fillText('Список результатов:', X_COOR_CLOUD + 50, Y_COOR_CLOUD + 2 * GISTOGRAM_LABEL_SHIFT); // shift parameters
 };
 
-var renderGistogramColumn = function (context, geometryColumn) {
-  var alias = geometryColumn;
-  context.fillStyle = alias.color;
-  context.fillRect = (alias.xCoor, alias.yCoor, alias.width, alias.height);
-  context.fillStyle = alias.upLabel.color;
-  context.fillText(alias.upLabel.name, alias.upLabel.xCoor, alias.upLabel.yCoor);
-  context.fillStyle = alias.downLabel.color;
-  context.fillText(alias.downLabel.name, alias.downLabel.xCoor, alias.downLabel.yCoor);
-};
-
-var getGeometryColumns = function (renderParameters, names, times) {
-  var maxValue = getMaxValue(times);
-  var geometryColumns = [];
-  var alias = geometryColumns;
-  for (var i = 0; i < names.length; ++i) {
-    var delta = GISTOGRAM_HEIGHT * (1 - times[i] / maxValue);
-    alias[i] = {};
-    alias[i].upLabel = {};
-    alias[i].downLabel = {};
-    alias[i].xCoor = X_COOR_CLOUD + GISTOGRAM_DISTANCE_BETWEEN_COLUMN + (GISTOGRAM_COLUMN_WIDTH + GISTOGRAM_DISTANCE_BETWEEN_COLUMN) * i;
-    alias[i].yCoor = Y_COOR_CLOUD + CLOUD_HEIGHT - GISTOGRAM_HEIGHT + delta;
-    alias[i].height = GISTOGRAM_HEIGHT - GISTOGRAM_LABELAREA_HEIGHT - delta;
-    alias[i].width = GISTOGRAM_COLUMN_WIDTH;
-    alias[i].color = (names === 'Вы') ? GISTOGRAM_PLAYER_COLUMN_COLOUR : randomColorGenerator();
-    alias[i].upLabel.xCoor = alias[i].xCoor;
-    alias[i].upLabel.yCoor = alias[i].yCoor - GISTOGRAM_LABEL_SHIFT / 2;
-    alias[i].upLabel.name = Math.round(times[i]);
-    alias[i].upLabel.color = 'black';
-    alias[i].downLabel.xCoor = alias[i].xCoor;
-    alias[i].downLabel.yCoor = alias[i].yCoor + alias[i].height + GISTOGRAM_LABEL_SHIFT;
-    alias[i].downLabel.name = names[i];
-    alias[i].downLabel.color = 'black';
-  }
-  return geometryColumns;
-};
-
 var renderGistogramColumns = function (renderParameters, names, times) {
-  var geometryParameters = getGeometryColumns(renderParameters, names, times);
+  var maxValue = getMaxValue(times);
   for (var i = 0; i < names.length; ++i) {
-    renderGistogramColumn(renderParameters.context, geometryParameters[i]);
+    var name = names[i];
+    var time = Math.round(times[i]);
+    var geometry = getGistogramColumnGeometry(name, time, maxValue, i);
+    var color = (name === 'Вы') ? GISTOGRAM_PLAYER_COLUMN_COLOUR : randomColorGenerator();
+    renderGistogramColumn(name, time, geometry, color, renderParameters.context);
   }
+};
+
+var getGistogramColumnGeometry = function (name, time, maxValue, column) {
+  var delta = GISTOGRAM_HEIGHT * (1 - time / maxValue);
+  var x = X_COOR_CLOUD + GISTOGRAM_DISTANCE_BETWEEN_COLUMN;
+  x += (GISTOGRAM_COLUMN_WIDTH + GISTOGRAM_DISTANCE_BETWEEN_COLUMN) * column;
+  var y = Y_COOR_CLOUD + CLOUD_HEIGHT - GISTOGRAM_HEIGHT + delta;
+  var width = GISTOGRAM_COLUMN_WIDTH;
+  var height = GISTOGRAM_HEIGHT - GISTOGRAM_LABELAREA_HEIGHT - delta;
+
+  return {
+    x: x,
+    y: y,
+    width: width,
+    height: height
+  };
+};
+
+var renderGistogramColumn = function (name, time, geometry, color, context) {
+  context.fillStyle = color;
+  context.fillRect(geometry.x, geometry.y, geometry.width, geometry.height);
+  context.fillStyle = 'black';
+  context.fillText(time, geometry.x, geometry.y - GISTOGRAM_LABEL_SHIFT / 2);
+  context.fillText(name, geometry.x, geometry.y + geometry.height + GISTOGRAM_LABEL_SHIFT);
 };
 
 var renderGistogram = function (renderParameters, names, times) {
