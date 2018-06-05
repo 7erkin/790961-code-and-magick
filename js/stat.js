@@ -77,10 +77,10 @@ var renderGistogramLabel = function (renderParameters) {
   renderParameters.context.fillText('Список результатов:', X_COOR_CLOUD + 50, Y_COOR_CLOUD + 2 * GISTOGRAM_LABEL_SHIFT); // shift parameters
 };
 
-var renderGistogramColumn = function (renderParameters, names, times, maxValue) {
+var renderGistogramColumn = function (renderParameters, names, times, maxValue, numberColumn) {
   renderParameters.context.fillStyle = (names === 'Вы') ? GISTOGRAM_PLAYER_COLUMN_COLOUR : randomColorGenerator();
   var delta = GISTOGRAM_HEIGHT * (1 - times / maxValue);
-  var xCoorRectangle = X_COOR_CLOUD + GISTOGRAM_DISTANCE_BETWEEN_COLUMN + (GISTOGRAM_COLUMN_WIDTH + GISTOGRAM_DISTANCE_BETWEEN_COLUMN) * i;
+  var xCoorRectangle = X_COOR_CLOUD + GISTOGRAM_DISTANCE_BETWEEN_COLUMN + (GISTOGRAM_COLUMN_WIDTH + GISTOGRAM_DISTANCE_BETWEEN_COLUMN) * numberColumn;
   var yCoorRectangle = Y_COOR_CLOUD + CLOUD_HEIGHT - GISTOGRAM_HEIGHT + delta;
   var heightRectangle = GISTOGRAM_HEIGHT - GISTOGRAM_LABELAREA_HEIGHT - delta;
   renderParameters.context.fillRect(xCoorRectangle, yCoorRectangle, GISTOGRAM_COLUMN_WIDTH, heightRectangle);
@@ -92,7 +92,7 @@ var renderGistogramColumn = function (renderParameters, names, times, maxValue) 
 var renderGistogramColumns = function (renderParameters, names, times) {
   var maxValue = getMaxValue(times);
   for (var i = 0; i < names.length; ++i) {
-    renderGistogramColumn(renderParameters, names, times, maxValue);
+    renderGistogramColumn(renderParameters, names, times, maxValue, i);
   }
 };
 
