@@ -192,10 +192,10 @@
     return 1.337 * wizardWidth;
   }
   var getWizardX = function(width){
-      return (1 / 2) * width - (1 / 2) * wizardWidth;
+      return width / 2 - wizardWidth / 2;
   }
   var getWizardY = function(height){
-      return (1 / 3) * height - getWizardHeight(wizardWidth) >> 1;
+      return height / 3 - getWizardHeight(wizardWidth) / 2;
   }
 </script>
 <script src="js/stat.js"></script>
