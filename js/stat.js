@@ -22,12 +22,17 @@ var getMaxValue = function (array) {
   return temp;
 };
 
+var getRandomInit = function (min, max) {
+  return Math.floor(Math.random() * (max + 1 - min)) + min;
+};
+
 var randomColorGenerator = function () {
+  var addColor = getRandomInit(0, 140);
   var redComponent = 0;
   var greenComponent = 0;
-  var blueComponent = 255 - Math.round(105 * Math.random());
+  var blueComponent = getRandomInit(150, 255);
   var aComponent = 1;
-  return 'rgba(' + redComponent + ', ' + greenComponent + ', ' + blueComponent + ', ' + aComponent + ')';
+  return 'rgba(' + redComponent + ', ' + reenComponent + ', ' + blueComponent + ', ' + aComponent + ')';
 };
 
 var renderParametersCreator = function (ctx) {
@@ -64,13 +69,16 @@ var renderCloud = function (renderParameters) {
   renderParameters.context.fillRect(renderParameters.x, renderParameters.y, renderParameters.width, renderParameters.height);
 };
 
-var renderGistogram = function (renderParameters, names, times) {
-  var maxValue = getMaxValue(times);
+var renderGistogramLabel = function () {
   renderParameters.context.fillStyle = 'black';
   renderParameters.context.font = '16px PT Mono';
   // shift parameters has been used because of TEXT IS COVERED WITH CLOUD!
   renderParameters.context.fillText('Ура вы победили!', X_COOR_CLOUD + 50, Y_COOR_CLOUD + GISTOGRAM_LABEL_SHIFT); // shift parameters
   renderParameters.context.fillText('Список результатов:', X_COOR_CLOUD + 50, Y_COOR_CLOUD + 2 * GISTOGRAM_LABEL_SHIFT); // shift parameters
+};
+
+var renderGistogramColumn = function () {
+  var maxValue = getMaxValue(times);
   for (var i = 0; i < names.length; ++i) {
     renderParameters.context.fillStyle = (names[i] === 'Вы') ? GISTOGRAM_PLAYER_COLUMN_COLOUR : randomColorGenerator();
     var delta = GISTOGRAM_HEIGHT * (1 - times[i] / maxValue);
@@ -82,6 +90,11 @@ var renderGistogram = function (renderParameters, names, times) {
     renderParameters.context.fillText(Math.round(times[i]), xCoorRectangle, yCoorRectangle - GISTOGRAM_LABEL_SHIFT / 2);
     renderParameters.context.fillText(names[i], xCoorRectangle, yCoorRectangle + heightRectangle + GISTOGRAM_LABEL_SHIFT);
   }
+};
+
+var renderGistogram = function (renderParameters, names, times) {
+  renderGistogramLabel();
+  renderGistogramColumn(renderParameters, names, times);
 };
 
 window.renderStatistics = function (ctx, names, times) {
