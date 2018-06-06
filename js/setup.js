@@ -2,7 +2,7 @@ var QUANTITY_WIZARDS = 4;
 
 var showSetupBlock = function () {
     var domElement = document.querySelector('.setup');
-    domElement.classList.remove('.hidden');
+    domElement.classList.remove('hidden');
 };
 
 var wizards = {
@@ -38,7 +38,7 @@ var wizards = {
         var index = Math.round(Math.random() * this.propertyPull.coatColors.length);
         return this.propertyPull.coatColors[index];
     },
-    eyesColors: function () {
+    getColorEyes: function () {
         var index = Math.round(Math.random() * this.propertyPull.eyesColors.length);
         return this.propertyPull.eyesColors[index];
     }
@@ -54,7 +54,8 @@ var showSetupSimilarBlock = function(wizards) {
     }
     var targetObject = document.querySelector('.setup-similar-list');
     targetObject.appendChild(fragment);
-    targetObject.classList.remove('.hidden');
+    var element = document.querySelector('.setup-similar');
+    element.classList.remove('hidden');
 };
 
 var makeWizard = function (element, wizardProperty) {
