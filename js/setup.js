@@ -30,16 +30,16 @@ var wizards = {
         }
     },
     getName: function () {
-        var indexFirstName = Math.round(Math.random() * this.propertyPull.firstNames.length);
-        var indexLastName = Math.round(Math.random() * this.propertyPull.lastNames.length);
+        var indexFirstName = Math.floor(Math.random() * this.propertyPull.firstNames.length);
+        var indexLastName = Math.floor(Math.random() * this.propertyPull.lastNames.length);
         return this.propertyPull.firstNames[indexFirstName] + ' ' + this.propertyPull.lastNames[indexLastName];
     },
     getColorCoat: function () {
-        var index = Math.round(Math.random() * this.propertyPull.coatColors.length);
+        var index = Math.floor(Math.random() * this.propertyPull.coatColors.length);
         return this.propertyPull.coatColors[index];
     },
     getColorEyes: function () {
-        var index = Math.round(Math.random() * this.propertyPull.eyesColors.length);
+        var index = Math.floor(Math.random() * this.propertyPull.eyesColors.length);
         return this.propertyPull.eyesColors[index];
     }
 };
