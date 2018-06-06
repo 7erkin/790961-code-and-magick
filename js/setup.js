@@ -4,8 +4,8 @@ var WIZARDS_QUANTITY = 4;
 
 // Объект wizards есть набор свойств и функций для их инициализации
 var wizards = {
-  wizardsCharacters: {},                             // Объект для хранения значений свойств каждого из персонажей
-  propertyPull: {                                    // Коллекция свойств которая будет применена к каждому персонажу
+  wizardsCharacters: {}, // Объект для хранения значений свойств каждого из персонажей
+  propertyPull: { // Коллекция свойств которая будет применена к каждому персонажу
     firstNames: [
       'Иван',
       'Хуан Себастьян',
@@ -42,7 +42,7 @@ var wizards = {
       'green'
     ]
   },
-  initWizards: function (howManyWizards) {                        // формируем персонажей путем создания свойств в объектах
+  initWizards: function (howManyWizards) { // формируем персонажей путем создания свойств в объектах
     for (var i = 0; i < howManyWizards; ++i) {
       this.wizardsCharacters[i] = {};
       this.wizardsCharacters[i].name = this.getName();
