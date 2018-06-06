@@ -82,7 +82,7 @@ var showSetupSimilarBlock = function (wizardsCharacters) {
   document.querySelector('.setup-similar').classList.remove('hidden');
 };
 
-var makeWizard = function (domElement, wizardCharacters) {                                     // функция наполнения шаблона информацией о персонаже
+var makeWizard = function (domElement, wizardCharacters) { // функция наполнения шаблона информацией о персонаже
   domElement.querySelector('.setup-similar-label').textContent = wizardCharacters.name;
   domElement.querySelector('.wizard-coat').style.fill = wizardCharacters.colorCoat;
   domElement.querySelector('.wizard-eyes').style.fill = wizardCharacters.colorEyes;
