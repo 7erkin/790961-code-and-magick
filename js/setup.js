@@ -39,7 +39,7 @@ var COLOR_EYES = [
 
 var wizards = [];
 
-var Wizards = function (howManyWizards, firstNames, lastNames, colorCoats, colorEyes) {
+var getWizards = function (howManyWizards, firstNames, lastNames, colorCoats, colorEyes) {
   var array = [];
   for (var i = 0; i < howManyWizards; ++i) {
     var wizard = new Wizard(firstNames, lastNames, colorCoats, colorEyes);
@@ -85,6 +85,6 @@ var getRandomElement = function (array) {
   return array[getRandomValue(array.length)];
 };
 
-wizards = new Wizards(WIZARDS_QUANTITY, FIRSTNAMES, LASTNAMES, COLOR_COATS, COLOR_EYES);
+wizards = getWizards(WIZARDS_QUANTITY, FIRSTNAMES, LASTNAMES, COLOR_COATS, COLOR_EYES);
 showSetupBlock();
 showSetupSimilarBlock(wizards.wizardsCharacters);
