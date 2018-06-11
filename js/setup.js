@@ -37,17 +37,21 @@ var COLOR_EYES = [
   'green'
 ];
 
-// Объект wizards есть набор свойств и функций для их инициализации
-var wizards = {
-  wizardsCharacters: {}, // Объект для хранения значений свойств каждого из персонажей
-  initWizards: function (howManyWizards, firstNames, lastNames, colorCoats, colorEyes) { // формируем персонажей путем создания свойств в объектах
-    for (var i = 0; i < howManyWizards; ++i) {
-      this.wizardsCharacters[i] = {};
-      this.wizardsCharacters[i].name = firstNames[getRandomValue(firstNames.length)] + ' ' + lastNames[getRandomValue(lastNames.length)];
-      this.wizardsCharacters[i].colorEyes = colorEyes[getRandomValue(colorEyes.length)];
-      this.wizardsCharacters[i].colorCoat = colorCoats[getRandomValue(colorCoats.length)];
-    }
+var wizards = [];
+
+var Wizards = function (howManyWizards, firstNames, lastNames, colorCoats, colorEyes) {
+  var array = [];
+  for (var i = 0; i < howManyWizards; ++i) {
+    var wizard = new Wizard(firstNames, lastNames, colorCoats, colorEyes);
+    array.push(wizard);
   }
+  return array;
+};
+
+var Wizard = function (firstNames, lastNames, colorCoats, colorEyes) {
+  this.name = getRandomElement(firstNames) + ' ' + getRandomElement(lastNames);
+  this.colorEyes = getRandomElement(colorEyes);
+  this.colorCoat = getRandomElement(colorCoats);
 };
 
 var showSetupBlock = function () {
@@ -77,6 +81,10 @@ var getRandomValue = function (maxValue) {
   return Math.floor(Math.random() * maxValue);
 };
 
-wizards.initWizards(WIZARDS_QUANTITY, FIRSTNAMES, LASTNAMES, COLOR_COATS, COLOR_EYES);
+var getRandomElement = function (array) {
+  return array[getRandomValue(array.length)];
+};
+
+wizards = new Wizards(WIZARDS_QUANTITY, FIRSTNAMES, LASTNAMES, COLOR_COATS, COLOR_EYES);
 showSetupBlock();
 showSetupSimilarBlock(wizards.wizardsCharacters);
