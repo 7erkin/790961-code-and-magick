@@ -59,12 +59,12 @@ var showSetupBlock = function () {
   domElement.classList.remove('hidden');
 };
 
-var showSetupSimilarBlock = function (wizardsCharacters) {
+var showSetupSimilarBlock = function (persons) {
   var template = document.querySelector('#similar-wizard-template').content.querySelector('div');
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < WIZARDS_QUANTITY; ++i) {
     var domElement = template.cloneNode(true);
-    makeWizard(domElement, wizardsCharacters[i]);
+    makeWizard(domElement, persons[i]);
     fragment.appendChild(domElement);
   }
   document.querySelector('.setup-similar-list').appendChild(fragment);
@@ -87,4 +87,4 @@ var getRandomElement = function (array) {
 
 wizards = getWizards(WIZARDS_QUANTITY, FIRSTNAMES, LASTNAMES, COLOR_COATS, COLOR_EYES);
 showSetupBlock();
-showSetupSimilarBlock(wizards.wizardsCharacters);
+showSetupSimilarBlock(wizards);
