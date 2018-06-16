@@ -88,3 +88,90 @@ var getRandomElement = function (array) {
 wizards = getWizards(WIZARDS_QUANTITY, FIRSTNAMES, LASTNAMES, COLOR_COATS, COLOR_EYES);
 showSetupBlock();
 showSetupSimilarBlock(wizards);
+
+
+// ==================== Здесь начинается module4-task1
+
+// ========== В этом блоке настраиваю интерфейс работы с окном настройки параметров персонажа ==========
+var elementSetup = document.querySelector('.setup');
+var elementInputUserName = elementSetup.querySelector('.setup-user-name');
+var elementCloseSetup = document.querySelector('.setup-close');
+var elementOpenSetup = document.querySelector('.setup-open');
+var isClosePopupAllowed = function (evt) {
+  return (evt.target === elementInputUserName) ? false : true; // !!! isn't quite right !!!
+};
+var openPopup = function () {
+  elementSetup.classList.remove('hidden');
+};
+var closePopup = function () {
+  elementSetup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupPressEsc);
+};
+var onPopupPressEsc = function (evt) {
+  if (evt.keyCode === 27) {
+    if (isClosePopupAllowed(evt)) {
+      closePopup();
+    }
+  }
+};
+var onOpenSetupClicked = function (evt) {
+  if (evt.keyCode === undefined || evt.keyCode === 13) {
+    openPopup();
+    document.addEventListener('keydown', onPopupPressEsc);
+  }
+};
+var onCloseSetupClicked = function (evt) {
+  if (evt.keyCode === undefined || evt.keyCode === 13) {
+    closePopup();
+  }
+};
+elementOpenSetup.addEventListener('click', onOpenSetupClicked);
+elementOpenSetup.addEventListener('keydown', onOpenSetupClicked);
+elementCloseSetup.addEventListener('click', onCloseSetupClicked);
+elementCloseSetup.addEventListener('keydown', onCloseSetupClicked);
+
+// ========== В этом блоке настраиваю интерфейс по изменению параметров волшебника пользователем ==========
+// setWizardItemColor - функция для установки цвета элементам персонажа
+// setFireballColor - функция для установки цвета Файербола
+// onWizardSetupClicked - обработчик события для осуществления изменения цвета объектов в меню
+var setWizardItemColor = function (element, elementHiddenInput, colors) {
+  var color = getRandomElement(colors);
+  element.style.fill = color;
+  elementHiddenInput.value = color;
+};
+var setFireballColor = function (element, elementHiddenInput, colors) {
+  var color = getRandomElement(colors);
+  element.setAttribute('style', 'background-color:' + color);
+  elementHiddenInput.querySelector('[name="fireball-color"]').value = color;
+};
+var COLOR_FIREBALLS = [
+  '#ee4830',
+  '#30a8ee',
+  '#5ce6c0',
+  '#e848d5',
+  '#e6e848'
+];
+var elementWizardCoat = elementSetup.querySelector('.wizard-coat');
+var elementWizardEyes = elementSetup.querySelector('.wizard-eyes');
+var elementFireballWrap = elementSetup.querySelector('.setup-fireball-wrap');
+var elementFireball = elementFireballWrap.querySelector('.setup-fireball');
+var onWizardSetupClicked = function (evt) {
+  var elementHiddenInput;
+  if (evt.target === elementFireball) {
+    elementHiddenInput = elementFireballWrap.querySelector('[name="coat-color"]');
+    setFireballColor(elementFireballWrap, elementHiddenInput, COLOR_FIREBALLS);
+    evt.stopPropagation();
+  }
+  if (evt.target === elementWizardCoat) {
+    elementHiddenInput = elementSetup.querySelector('[name="coat-color"]');
+    setWizardItemColor(elementWizardCoat, elementHiddenInput, COLOR_COATS);
+    evt.stopPropagation();
+  }
+  if (evt.target === elementWizardEyes) {
+    elementHiddenInput = elementSetup.querySelector('[name="eyes-color"]');
+    setWizardItemColor(elementWizardEyes, elementHiddenInput, COLOR_EYES);
+    evt.stopPropagation();
+  }
+};
+
+document.querySelector('.setup-player').addEventListener('click', onWizardSetupClicked);
