@@ -143,7 +143,7 @@ var setWizardItemColor = function (element, elementHiddenInput, colors) {
 var setFireballColor = function (element, elementHiddenInput, colors) {
   var color = getRandomElement(colors);
   element.setAttribute('style', 'background-color:' + color);
-  elementHiddenInput.querySelector('[name="fireball-color"]').value = color;
+  elementHiddenInput.value = color;
 };
 var COLOR_FIREBALLS = [
   '#ee4830',
@@ -159,7 +159,7 @@ var elementFireball = elementFireballWrap.querySelector('.setup-fireball');
 var onWizardSetupClicked = function (evt) {
   var elementHiddenInput;
   if (evt.target === elementFireball) {
-    elementHiddenInput = elementFireballWrap.querySelector('[name="coat-color"]');
+    elementHiddenInput = elementFireballWrap.querySelector('[name="fireball-color"]');
     setFireballColor(elementFireballWrap, elementHiddenInput, COLOR_FIREBALLS);
     evt.stopPropagation();
   }
