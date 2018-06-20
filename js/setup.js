@@ -106,6 +106,7 @@ var openPopup = function () {
 var closePopup = function () {
   elementSetup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupPressEsc);
+  setSetupBaseLocation();
 };
 var onPopupPressEsc = function (evt) {
   if (evt.keyCode === 27) {
@@ -142,7 +143,7 @@ var setWizardItemColor = function (element, elementHiddenInput, colors) {
 var setFireballColor = function (element, elementHiddenInput, colors) {
   var color = getRandomElement(colors);
   element.setAttribute('style', 'background-color:' + color);
-  elementHiddenInput.querySelector('[name="fireball-color"]').value = color;
+  elementHiddenInput.value = color;
 };
 var COLOR_FIREBALLS = [
   '#ee4830',
@@ -158,7 +159,7 @@ var elementFireball = elementFireballWrap.querySelector('.setup-fireball');
 var onWizardSetupClicked = function (evt) {
   var elementHiddenInput;
   if (evt.target === elementFireball) {
-    elementHiddenInput = elementFireballWrap.querySelector('[name="coat-color"]');
+    elementHiddenInput = elementFireballWrap.querySelector('[name="fireball-color"]');
     setFireballColor(elementFireballWrap, elementHiddenInput, COLOR_FIREBALLS);
     evt.stopPropagation();
   }
@@ -175,3 +176,61 @@ var onWizardSetupClicked = function (evt) {
 };
 
 document.querySelector('.setup-player').addEventListener('click', onWizardSetupClicked);
+
+// ========== В этом блоке реализую Drag'n'drop меню настройки ==========
+
+var baseSetupCoords = {
+  x: elementSetup.style.left,
+  y: elementSetup.style.top
+};
+var isSetupDragged;
+
+var onMouseDown = function (evt) {
+  evt.preventDefault();
+  isSetupDragged = false;
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+  var onMouseMove = function (mouseEvt) {
+    evt.preventDefault();
+    var shift = getShift(mouseEvt);
+    setSetupLocation(shift);
+    changeStartCoords(mouseEvt);
+    isSetupDragged = true;
+  };
+  var onMouseUp = function () {
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+  var getShift = function (mouseEvt) {
+    return {
+      x: startCoords.x - mouseEvt.clientX,
+      y: startCoords.y - mouseEvt.clientY
+    };
+  };
+  var changeStartCoords = function (mouseEvt) {
+    startCoords.x = mouseEvt.clientX;
+    startCoords.y = mouseEvt.clientY;
+  };
+  var setSetupLocation = function (shift) {
+    elementSetup.style.left = (elementSetup.offsetLeft - shift.x) + 'px';
+    elementSetup.style.top = (elementSetup.offsetTop - shift.y) + 'px';
+  };
+};
+
+var setSetupBaseLocation = function () {
+  elementSetup.style.left = baseSetupCoords.x;
+  elementSetup.style.top = baseSetupCoords.y;
+};
+var onAvatarClicked = function (evt) {
+  if (isSetupDragged) {
+    isSetupDragged = false;
+    evt.preventDefault();
+  }
+};
+var elementAvatar = document.querySelector('.upload');
+elementAvatar.addEventListener('mousedown', onMouseDown);
+elementAvatar.addEventListener('click', onAvatarClicked);
