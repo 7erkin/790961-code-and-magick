@@ -13,6 +13,7 @@
     domElement.querySelector('.wizard-eyes').style.fill = wizardCharacters.colorEyes;
   };
   var renderSimilarWizards = function (persons) {
+    deletePreviousSimilarWizards();
     var template = document.querySelector('#similar-wizard-template').content.querySelector('div');
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < persons.length; ++i) {
@@ -85,6 +86,7 @@
   };
 
   var applyResponse = function (objects) {
+    deletePreviousError();
     var similarWizards = getRandomArrayElements(objects);
     renderSimilarWizards(similarWizards);
   };
@@ -146,6 +148,15 @@
       resultArray.push(array[randomIndex]);
     }
     return resultArray;
+  };
+  var deletePreviousSimilarWizards = function () {
+    var elementsSimilarWizards = document.querySelectorAll('[data-wizard="true"]');
+    if (elementsSimilarWizards === null) {
+      return;
+    }
+    for (var i = 0; i < elementsSimilarWizards.length; ++i) {
+      elementsSimilarWizards[i].remove();
+    }
   };
 
   addListenerToSetup();
