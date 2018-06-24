@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -8,10 +8,9 @@
   <title>Код и Магия</title>
 </head>
 <body>
-
 <header>
   <svg style="display: none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62
-        86">
+        86"
     <g id="wizard">
       <g id="wizard-coat">
         <polygon points="19 67 19 59 14 59 14 82 9 82 9 86 23 86 23 67 19 67"/>
@@ -183,6 +182,10 @@
   </div>
 </template>
 
+<template id="network-error">
+  <div id="error" style="border: 1px solid burlywood; background: aliceblue; width: 700px; height: 25px; margin: auto; text-align: center" ></div> 
+</template>
+
 <script>
   var fireballSize = 22;
   var wizardSpeed = 3;
@@ -204,7 +207,7 @@
 <script src="js/game.js"></script>
 <script src="js/objects.js"></script>
 <script src="js/library.js"></script>
-<script src="js/data-mock.js"></script>
+<script src="js/backend.js"></script>
 <script src="js/setup-drag-and-drop.js"></script>
 <script src="js/wizard-setup.js"></script>
 <script src="js/setup.js"></script>
