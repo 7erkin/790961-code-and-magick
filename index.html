@@ -10,7 +10,7 @@
 <body>
 <header>
   <svg style="display: none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62
-        86"
+        86">
     <g id="wizard">
       <g id="wizard-coat">
         <polygon points="19 67 19 59 14 59 14 82 9 82 9 86 23 86 23 67 19 67"/>
@@ -77,7 +77,7 @@
       <div class="setup-user">
         <div class="upload">
           <img class="setup-user-pic" src="./img/user-1.jpg"/>
-          <input type="file" name="avatar">
+          <input type="file" name="avatar" id="avatar">
         </div>
         <label>
           <input type="text" name="username" 
@@ -109,9 +109,9 @@
         <div class="setup-wizard-wrap">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62 86" class="setup-wizard">
             <g class="wizard">
-              <use xlink:href="#wizard-coat" class="wizard-coat" style="fill: #6589a4"></use>
+              <use xlink:href="#wizard-coat" class="wizard-coat" style="fill: rgb(101, 137, 164)"></use>
               <use xlink:href="#wizard-head" class="wizard-head"></use>
-              <use xlink:href="#wizard-eyes" class="wizard-eyes"></use>
+              <use xlink:href="#wizard-eyes" class="wizard-eyes" style="fill: black"></use>
               <use xlink:href="#wizard-hands" class="wizard-hands"></use>
             </g>
           </svg>
@@ -182,10 +182,6 @@
   </div>
 </template>
 
-<template id="network-error">
-  <div id="error" style="border: 1px solid burlywood; background: aliceblue; width: 700px; height: 25px; margin: auto; text-align: center" ></div> 
-</template>
-
 <script>
   var fireballSize = 22;
   var wizardSpeed = 3;
@@ -203,13 +199,17 @@
     return height / 3 - getWizardHeight(wizardWidth) / 2;
   }
 </script>
-<script src="js/stat.js"></script>
-<script src="js/game.js"></script>
+
 <script src="js/objects.js"></script>
 <script src="js/library.js"></script>
+<script src="js/stat.js"></script>
+<script src="js/game.js"></script>
 <script src="js/backend.js"></script>
+<script src="js/avatar-loader.js"></script>
 <script src="js/setup-drag-and-drop.js"></script>
 <script src="js/wizard-setup.js"></script>
 <script src="js/setup.js"></script>
+<script src="js/wizard-filtration.js"></script>
+
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 (function () {
   var elementSetup = document.querySelector('.setup');
+  var elementAvatar = document.querySelector('.upload');
   var dragged;
 
   var onMouseDown = function (evt) {
@@ -45,7 +46,7 @@
       evt.preventDefault();
     }
   };
-  var elementAvatar = document.querySelector('.upload');
+
   elementAvatar.addEventListener('mousedown', onMouseDown);
   elementAvatar.addEventListener('click', onAvatarClicked);
 })();

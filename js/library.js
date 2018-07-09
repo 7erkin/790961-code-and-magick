@@ -2,6 +2,7 @@
 
 (function () {
   window.library = {};
+  window.library.renderErrorMessage = function () {};
   window.library.enableElement = function (element) {
     element.removeAttribute('disabled');
   };

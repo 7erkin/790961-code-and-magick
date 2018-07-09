@@ -2,6 +2,11 @@
 
 (function () {
   var elementSetup = document.querySelector('.setup');
+  var elementWizardCoat = elementSetup.querySelector('.wizard-coat');
+  var elementWizardEyes = elementSetup.querySelector('.wizard-eyes');
+  var elementFireballWrap = elementSetup.querySelector('.setup-fireball-wrap');
+  var elementFireball = elementFireballWrap.querySelector('.setup-fireball');
+
   var setWizardItemColor = function (element, elementHiddenInput, colors) {
     var color = window.library.getRandomArrayElement(colors);
     element.style.fill = color;
@@ -12,10 +17,6 @@
     element.setAttribute('style', 'background-color:' + color);
     elementHiddenInput.value = color;
   };
-  var elementWizardCoat = elementSetup.querySelector('.wizard-coat');
-  var elementWizardEyes = elementSetup.querySelector('.wizard-eyes');
-  var elementFireballWrap = elementSetup.querySelector('.setup-fireball-wrap');
-  var elementFireball = elementFireballWrap.querySelector('.setup-fireball');
   var onWizardSetupClicked = function (evt) {
     var elementHiddenInput;
     if (evt.target === elementFireball) {

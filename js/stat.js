@@ -68,7 +68,6 @@
   var renderGistogramTitle = function (renderParameters) {
     renderParameters.context.fillStyle = 'black';
     renderParameters.context.font = '16px PT Mono';
-    // shift parameters has been used because of TEXT IS COVERED WITH CLOUD!
     renderParameters.context.fillText('Ура вы победили!', X_COOR_CLOUD + 50, Y_COOR_CLOUD + GISTOGRAM_LABEL_SHIFT); // shift parameters
     renderParameters.context.fillText('Список результатов:', X_COOR_CLOUD + 50, Y_COOR_CLOUD + 2 * GISTOGRAM_LABEL_SHIFT); // shift parameters
   };
